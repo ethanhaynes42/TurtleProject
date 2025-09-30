@@ -18,7 +18,7 @@
         .card {
             background-color: #1a273a; /* Darker card background */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            min-height: 85vh;
+            min-height: 85vh; /* Ensure consistent height */
             border-radius: 1.5rem;
             border: 1px solid #2d4059;
         }
@@ -27,19 +27,6 @@
         .tracking-icon {
             font-size: 3rem;
             line-height: 1;
-        }
-        /* Custom styles for the turtle image placeholder */
-        .turtle-placeholder {
-            background-color: #4b5563;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 300px;
-            width: 100%;
-            border-radius: 1rem;
-            text-align: center;
-            font-style: italic;
         }
     </style>
 </head>
@@ -87,7 +74,7 @@
                 `
             },
 
-            // SLIDE 2: Alabama Presence & Habitat
+            // SLIDE 2: Alabama Presence & Habitat - IMAGE ADDED HERE
             {
                 title: "Habitat and Alabama Distribution",
                 icon: "🌊",
@@ -109,9 +96,10 @@
                             <p class="text-lg text-gray-300">
                                 This species prefers **shallow, nearshore (neritic) waters** with sandy or muddy bottoms, where their favorite crustacean prey are found. Unlike some other species, they spend significant time in bays and estuaries.
                             </p>
-                            <div class="turtle-placeholder mt-4">
-                                <p>https://www.reptilefact.com/wp-content/uploads/2017/08/Kemp-Ridley-Sea-Turtle-Habitat.jpg</p>
-                            </div>
+                            <!-- Placeholder Image for Map -->
+                            <img src="https://placehold.co/600x350/1e88e5/ffffff?text=Gulf+of+Mexico+Range+Map" 
+                                alt="Placeholder for a map showing the Kemp's Ridley range in the Gulf of Mexico and Alabama coast." 
+                                class="w-full h-auto object-cover rounded-xl mt-4 border border-blue-400/50">
                         </div>
                     </div>
                 `
@@ -159,33 +147,28 @@
                 `
             },
 
-            // SLIDE 5: Physical Tracking: Tracks and Footprints
+            // SLIDE 5: Physical Tracking: Tracks and Footprints - IMAGE ADDED HERE
             {
                 title: "Physical Tracking & Footprints for Models",
                 icon: "👣",
                 content: `
                     <h2 class="text-2xl font-bold text-coral mb-3">Data for Your AI Tracking Model</h2>
-                    <div class="md:grid md:grid-cols-2 gap-8">
+                    <div class="md:grid md:grid-cols-2 gap-8 items-center">
                         <div>
                             <p class="text-lg text-gray-300 mb-4">
                                 When a turtle crawls from the ocean to nest, it leaves a distinct track, which your model can be trained to recognize and distinguish from other species like Loggerheads.
                             </p>
                             <ul class="list-disc list-inside ml-4 space-y-3 text-gray-300">
                                 <li>**Track Width:** Kemp's Ridley tracks are the **narrowest** of all nesting sea turtles, typically measuring only **26–36 inches (66–91 cm)** wide.</li>
-                                <li>**Flippers (Alternating Crawl):** The tracks show an **alternating diagonal crawl pattern**. This means the left front flipper moves simultaneously with the right rear flipper, creating a "zig-zag" pattern of disturbance, unlike the synchronized crawl of the Loggerhead.</li>
+                                <li>**Flippers (Alternating Crawl):** The tracks show an **alternating diagonal crawl pattern**. This means the left front flipper moves simultaneously with the right rear flipper, creating a "zig-zag" pattern of disturbance.</li>
                                 <li>**Lack of Tail Drag:** Often, there is no distinct tail drag mark down the center of the crawl, though the plastron (belly) may leave a smooth groove.</li>
                             </ul>
                         </div>
-                        <div class="turtle-placeholder tracking-icon text-4xl">
-                            <p>
-                                <!-- Emulating a visual representation of the track pattern -->
-                                **Alternating Diagonal Crawl Pattern**<br>
-                                <span class="block mt-2">LEFT FLIPPER PUSH &rarr;</span><br>
-                                <span class="block"> &larr; RIGHT FLIPPER PUSH</span><br>
-                                <span class="block">LEFT FLIPPER PUSH &rarr;</span><br>
-                                <span class="block"> &larr; RIGHT FLIPPER PUSH</span><br>
-                                (Train your model to recognize the alternating push mounds and the narrow width.)
-                            </p>
+                        <div class="h-full flex items-center justify-center">
+                            <!-- Placeholder Image for Track Diagram -->
+                            <img src="https://placehold.co/600x350/7cb342/ffffff?text=Alternating+Crawl+Track+Diagram" 
+                                alt="Placeholder for a diagram showing the narrow, alternating diagonal crawl pattern of the Kemp's Ridley sea turtle track." 
+                                class="w-full h-auto object-cover rounded-xl border border-green-400/50">
                         </div>
                     </div>
                 `
@@ -216,7 +199,7 @@
                             </li>
                         </ul>
                         <p class="mt-6 p-4 border border-gray-500 rounded-xl bg-gray-700/30">
-                            **Note on Images:** Please use a search engine for high-resolution images of the Kemp's Ridley (use search terms like "Kemp's Ridley sea turtle" and "Kemp's Ridley hatchling") and for track diagrams (search for "sea turtle track patterns alternating crawl" or "Kemp's Ridley crawl track diagram").
+                            **Note on Images:** You can replace the placeholder URLs in **Slide 2** and **Slide 5** with your actual image links to make the presentation complete!
                         </p>
                     </div>
                 `
