@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kemp's Ridley Sea Turtle: AI Tracking & Conservation</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1a26; /* Deep Sea Blue */
+        }
+        .slide {
+            transition: opacity 0.5s ease-in-out;
+        }
+        .card {
+            background-color: #1a273a; /* Darker card background */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            min-height: 85vh;
+            border-radius: 1.5rem;
+            border: 1px solid #2d4059;
+        }
+        .text-coral { color: #ff6b6b; }
+        .bg-coral { background-color: #ff6b6b; }
+        .tracking-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        /* Custom styles for the turtle image placeholder */
+        .turtle-placeholder {
+            background-color: #4b5563;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            width: 100%;
+            border-radius: 1rem;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="presentation-container" class="max-w-6xl mx-auto">
+
+        <!-- Slide Content Container -->
+        <div id="slide-content">
+            <!-- Slides will be injected here by JavaScript -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between mt-6">
+            <button id="prev-btn" onclick="changeSlide(-1)" disabled class="px-6 py-3 bg-gray-600 text-white rounded-xl shadow-lg hover:bg-gray-700 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold">
+                &larr; Previous
+            </button>
+            <span id="slide-indicator" class="text-xl font-bold text-gray-300 self-center"></span>
+            <button id="next-btn" onclick="changeSlide(1)" class="px-6 py-3 bg-coral text-white rounded-xl shadow-lg hover:bg-red-500 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold">
+                Next &rarr;
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+
+        const slides = [
+            // SLIDE 1: Title & Overview
+            {
+                title: "Kemp's Ridley Sea Turtle (Lepidochelys kempii)",
+                icon: "🐢",
+                content: `
+                    <h2 class="text-3xl font-bold text-coral mb-4">The World's Most Endangered Sea Turtle</h2>
+                    <div class="space-y-4 text-lg text-gray-300">
+                        <p class="font-bold text-xl">STATUS: Federally Endangered (Critically Endangered - IUCN)</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li>**Size:** Smallest sea turtle species, averaging just **60–70 cm** (24–28 in) in shell length and weighing **35–45 kg** (77–100 lbs).</li>
+                            <li>**Appearance:** Oval-shaped, low-domed, grey-green carapace (upper shell) and a whitish-yellow plastron (lower shell).</li>
+                            <li>**Primary Range:** Restricted mostly to the **Gulf of Mexico**, with juveniles ranging along the U.S. Atlantic coast.</li>
+                            <li>**Threats:** Incidental capture in fishing gear (**bycatch**) is the single greatest threat, along with habitat degradation and the centralized nature of their nesting grounds.</li>
+                        </ul>
+                    </div>
+                `
+            },
+
+            // SLIDE 2: Alabama Presence & Habitat
+            {
+                title: "Habitat and Alabama Distribution",
+                icon: "🌊",
+                content: `
+                    <div class="md:grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h2 class="text-2xl font-bold text-coral mb-3">Alabama Presence (Rare Nesters)</h2>
+                            <p class="text-lg text-gray-300 mb-4">
+                                While the vast majority of nesting occurs in Mexico and Texas, Kemp's Ridleys are **occasional, rare visitors and nesters** along the Alabama Gulf Coast.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                                <li>**Counties:** Documented nesting and sightings in **Baldwin** and **Mobile** counties.</li>
+                                <li>**Key Areas:** Known nesting or stranding sites include **Bon Secour National Wildlife Refuge** and **Gulf Shores' West End Beach**.</li>
+                                <li>**Foraging:** Alabama's coastal and estuarine bay waters serve as important foraging areas for **juvenile** Kemp's Ridleys, where they feed heavily on **blue crabs**.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-coral mb-3">Coastal Habitat</h2>
+                            <p class="text-lg text-gray-300">
+                                This species prefers **shallow, nearshore (neritic) waters** with sandy or muddy bottoms, where their favorite crustacean prey are found. Unlike some other species, they spend significant time in bays and estuaries.
+                            </p>
+                            <div class="turtle-placeholder mt-4">
+                                <p>Placeholder for Satellite Tracking Map of the Gulf Coast/Alabama</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // SLIDE 3: Unique Nesting Habits
+            {
+                title: "Nesting Habits: The Arribada",
+                icon: "🏖️",
+                content: `
+                    <h2 class="text-2xl font-bold text-coral mb-3">Unique Behavior: Daytime, Group Nesting</h2>
+                    <div class="space-y-4 text-lg text-gray-300">
+                        <ul class="list-disc list-inside ml-4 space-y-3">
+                            <li>**Arribada:** Kemp’s Ridleys are one of only two sea turtle species (the other is the Olive Ridley) known to exhibit synchronized mass nesting, called an **arribada** (Spanish for "arrival").</li>
+                            <li>**Timing:** These mass nesting events often occur during the **daytime**, a behavior highly unusual among sea turtles, which typically nest at night.</li>
+                            <li>**Primary Nesting Site:** Almost the entire world population nests on a single stretch of beach near **Rancho Nuevo, Tamaulipas, Mexico**.</li>
+                            <li>**Nesting Cycle:** Females nest 2–3 times per season, laying around **100 soft, white eggs** per clutch. Incubation takes approximately 50-55 days.</li>
+                            <li>**Sex Determination:** As with all sea turtles, the gender of the hatchlings is determined by the nest temperature (**Temperature-Dependent Sex Determination**).</li>
+                        </ul>
+                    </div>
+                `
+            },
+
+            // SLIDE 4: Movement and AI Tracking Methods
+            {
+                title: "Movement, Migration & AI Tracking Data",
+                icon: "🛰️",
+                content: `
+                    <h2 class="text-2xl font-bold text-coral mb-3">Tracking Behavior for Conservation</h2>
+                    <div class="space-y-4 text-lg text-gray-300">
+                        <p>
+                            Kemp's Ridleys are highly migratory, moving between primary nesting sites in Mexico/Texas and foraging areas throughout the Gulf of Mexico and up the Atlantic coast.
+                        </p>
+                        <ul class="list-disc list-inside ml-4 space-y-3">
+                            <li>**Migration:** Adult females make long migrations to feeding areas, often tracking to waters off the coast of Louisiana and the northern Gulf.</li>
+                            <li>**Speed:** During the inter-nesting period, tracked females move an average of about **17.5 km (10.9 miles) per day**.</li>
+                            <li>**Advanced Tracking for AI:** Scientists use high-tech methods to generate data for models:
+                                <ul>
+                                    <li>**Satellite Telemetry:** Transmitters attached to the shell provide broad GPS location data on migration routes.</li>
+                                    <li>**Accelerometer-Depth Loggers (ADLs):** Devices attached to the turtle log fine-scale data (depth, flipper-beats, body angle) used in **Switching State-Space Models (SSM)** to differentiate foraging behavior (slow, deep dives) from migratory swimming (fast, consistent strokes).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                `
+            },
+
+            // SLIDE 5: Physical Tracking: Tracks and Footprints
+            {
+                title: "Physical Tracking & Footprints for Models",
+                icon: "👣",
+                content: `
+                    <h2 class="text-2xl font-bold text-coral mb-3">Data for Your AI Tracking Model</h2>
+                    <div class="md:grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-lg text-gray-300 mb-4">
+                                When a turtle crawls from the ocean to nest, it leaves a distinct track, which your model can be trained to recognize and distinguish from other species like Loggerheads.
+                            </p>
+                            <ul class="list-disc list-inside ml-4 space-y-3 text-gray-300">
+                                <li>**Track Width:** Kemp's Ridley tracks are the **narrowest** of all nesting sea turtles, typically measuring only **26–36 inches (66–91 cm)** wide.</li>
+                                <li>**Flippers (Alternating Crawl):** The tracks show an **alternating diagonal crawl pattern**. This means the left front flipper moves simultaneously with the right rear flipper, creating a "zig-zag" pattern of disturbance, unlike the synchronized crawl of the Loggerhead.</li>
+                                <li>**Lack of Tail Drag:** Often, there is no distinct tail drag mark down the center of the crawl, though the plastron (belly) may leave a smooth groove.</li>
+                            </ul>
+                        </div>
+                        <div class="turtle-placeholder tracking-icon text-4xl">
+                            <p>
+                                <!-- Emulating a visual representation of the track pattern -->
+                                **Alternating Diagonal Crawl Pattern**<br>
+                                <span class="block mt-2">LEFT FLIPPER PUSH &rarr;</span><br>
+                                <span class="block"> &larr; RIGHT FLIPPER PUSH</span><br>
+                                <span class="block">LEFT FLIPPER PUSH &rarr;</span><br>
+                                <span class="block"> &larr; RIGHT FLIPPER PUSH</span><br>
+                                (Train your model to recognize the alternating push mounds and the narrow width.)
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+
+            // SLIDE 6: Additional Resources
+            {
+                title: "Additional Resources and Videos",
+                icon: "🔗",
+                content: `
+                    <h2 class="text-2xl font-bold text-coral mb-3">Next Steps for Your Research</h2>
+                    <div class="space-y-4 text-lg text-gray-300">
+                        <ul class="list-disc list-inside ml-4 space-y-3">
+                            <li>
+                                **NOAA Fisheries Profile:** Official government conservation and status data.<br>
+                                <a href="https://www.fisheries.noaa.gov/species/kemps-ridley-turtle" target="_blank" class="text-blue-400 hover:text-blue-200 underline break-words">https://www.fisheries.noaa.gov/species/kemps-ridley-turtle</a>
+                            </li>
+                            <li>
+                                **Outdoor Alabama - Sea Turtles:** Information specifically about the three species that nest in Alabama.<br>
+                                <a href="https://www.outdooralabama.com/what-know-about-sea-turtles" target="_blank" class="text-blue-400 hover:text-blue-200 underline break-words">https://www.outdooralabama.com/what-know-about-sea-turtles</a>
+                            </li>
+                            <li>
+                                **Video: The Arribada:** A famous historic video of the 1947 arribada, showing the scale of the original population (search YouTube for: *"1947 Kemp's Ridley Arribada"*).
+                            </li>
+                            <li>
+                                **Tracking Model Data (Satellite Telemetry):** Data from the U.S. National Park Service on tracking research.<br>
+                                <a href="https://www.nps.gov/pais/learn/nature/tracking.htm" target="_blank" class="text-blue-400 hover:text-blue-200 underline break-words">https://www.nps.gov/pais/learn/nature/tracking.htm</a>
+                            </li>
+                        </ul>
+                        <p class="mt-6 p-4 border border-gray-500 rounded-xl bg-gray-700/30">
+                            **Note on Images:** Please use a search engine for high-resolution images of the Kemp's Ridley (use search terms like "Kemp's Ridley sea turtle" and "Kemp's Ridley hatchling") and for track diagrams (search for "sea turtle track patterns alternating crawl" or "Kemp's Ridley crawl track diagram").
+                        </p>
+                    </div>
+                `
+            }
+        ];
+
+        function renderSlide() {
+            const slide = slides[currentSlideIndex];
+            const contentDiv = document.getElementById('slide-content');
+            
+            // Build the HTML for the current slide
+            contentDiv.innerHTML = `
+                <div class="slide card p-8 text-white">
+                    <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-gray-700">
+                        <span class="tracking-icon">${slide.icon}</span>
+                        <h1 class="text-4xl font-extrabold text-white">${slide.title}</h1>
+                    </div>
+                    ${slide.content}
+                </div>
+            `;
+
+            // Update navigation
+            document.getElementById('slide-indicator').textContent = `Slide ${currentSlideIndex + 1} of ${slides.length}`;
+            document.getElementById('prev-btn').disabled = currentSlideIndex === 0;
+            document.getElementById('next-btn').disabled = currentSlideIndex === slides.length - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = slides.length - 1;
+            }
+            renderSlide();
+        }
+
+        // Initialize the presentation
+        window.onload = renderSlide;
+    </script>
+
+</body>
+</html>
