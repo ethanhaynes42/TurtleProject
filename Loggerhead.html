@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loggerhead Sea Turtle Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .slide-container {
+            min-height: 70vh;
+            background-color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .slide-content h2 { font-size: 1.5rem; font-weight: 700; color: #059669; margin-bottom: 1rem; }
+        .slide-content p, .slide-content ul, .slide-content table { margin-bottom: 1rem; }
+        .slide-content table { width: 100%; border-collapse: collapse; }
+        .slide-content th, .slide-content td { padding: 0.75rem; border: 1px solid #e5e7eb; text-align: left; }
+        .slide-content th { background-color: #ecfdf5; font-weight: 600; color: #065f46; }
+        .slide-content ul { list-style-type: disc; padding-left: 1.5rem; }
+        .slide-header { background-color: #065f46; color: white; padding: 1rem 0; }
+        .control-btn {
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .control-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.2);
+        }
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+            .slide-container { margin: 1rem; padding: 1.5rem; }
+            .slide-content h2 { font-size: 1.25rem; }
+            .slide-content th, .slide-content td { padding: 0.5rem; font-size: 0.875rem; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="app" class="max-w-4xl mx-auto rounded-xl overflow-hidden">
+        
+        <header class="slide-header text-center">
+            <h1 class="text-3xl font-bold">Loggerhead Sea Turtle (<em>Caretta caretta</em>)</h1>
+        </header>
+
+        <main id="slide-viewer" class="slide-container p-6 md:p-10 transition-opacity duration-500 ease-in-out rounded-b-xl">
+            <!-- Slides will be rendered here -->
+        </main>
+
+        <footer class="flex justify-between items-center p-4 bg-gray-100 border-t rounded-b-xl">
+            <button id="prev-btn" class="control-btn bg-emerald-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-emerald-600" onclick="changeSlide(-1)">
+                &larr; Previous
+            </button>
+            <span id="slide-indicator" class="text-lg font-mono text-gray-700">Slide 1 of 5</span>
+            <button id="next-btn" class="control-btn bg-emerald-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-emerald-600" onclick="changeSlide(1)">
+                Next &rarr;
+            </button>
+        </footer>
+    </div>
+
+    <script>
+        // Array containing all presentation data
+        const presentationSlides = [
+            {
+                title: "Slide 1: Species Overview and Status",
+                content: '<div class="space-y-4">' +
+                    '<h2 class="text-3xl font-extrabold text-emerald-700 mb-6">Species Overview and Status</h2>' +
+                    '<table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">' +
+                        '<thead class="bg-emerald-50"><tr><th>Feature</th><th>Details</th></tr></thead>' +
+                        '<tbody>' +
+                            '<tr><td>Scientific Name</td><td><em>Caretta caretta</em></td></tr>' +
+                            '<tr><td>Common Name</td><td>Loggerhead Sea Turtle (Named for its large, log-like head)</td></tr>' +
+                            '<tr><td class="bg-red-50 font-bold">Conservation Status</td><td class="bg-red-50 font-bold"><strong>Threatened</strong> (U.S. Endangered Species Act). Alabama\'s nesting subpopulation is small and critically important.</td></tr>' +
+                            '<tr><td>Characteristics</td><td>The largest hard-shelled sea turtle. It has powerful jaws used to crush hard-shelled prey like crabs, whelks, and conchs. Adults typically weigh 200–350 lbs (90–160 kg).</td></tr>' +
+                        '</tbody>' +
+                    '</table>' +
+                    '<div class="p-4 bg-blue-50 border-l-4 border-blue-400 text-blue-800">' +
+                        '<!-- Image Placeholder: Loggerhead Sea Turtle swimming in the ocean. --> <img src="http://googleusercontent.com/image_collection/image_retrieval/13404703969485576361_0" alt="Loggerhead Sea Turtle swimming" class="mt-3 rounded-xl shadow-lg w-full max-h-72 object-cover">' +
+                    '</div>' +
+                    '</div>'
+            },
+            {
+                title: "Slide 2: Habitat and Distribution in Alabama",
+                content: '<div class="space-y-4">' +
+                    '<h2 class="text-3xl font-extrabold text-emerald-700 mb-6">Habitat and Distribution in Alabama</h2>' +
+                    '<table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">' +
+                        '<thead class="bg-emerald-50"><tr><th>Topic</th><th>Details</th></tr></thead>' +
+                        '<tbody>' +
+                            '<tr><td>General Habitat</td><td>Wide-ranging across the Atlantic, Pacific, and Indian Oceans. They inhabit both open ocean (<em>pelagic</em>) and shallow coastal waters (<em>neritic</em>), including bays, lagoons, and salt marshes.</td></tr>' +
+                            '<tr><td>Foraging</td><td>They are often found feeding on the ocean floor in coral reefs or rocky areas. Juveniles often associate with floating <em>Sargassum</em> rafts for shelter and food.</td></tr>' +
+                            '<tr><td class="bg-yellow-50 font-semibold">Alabama Location</td><td class="bg-yellow-50">The Loggerhead is the <strong>most common sea turtle in Alabama waters</strong> and the only species that regularly nests here.</td></tr>' +
+                            '<tr><td>Nesting in Alabama</td><td>Nesting occurs along the Gulf Coast beaches, primarily between the <strong>Fort Morgan peninsula and Gulf Shores/Alabama Point</strong>, extending west to Dauphin Island.</td></tr>' +
+                        '</tbody>' +
+                    '</table>' +
+                    '</div>'
+            },
+            {
+                title: "Slide 3: Nesting and Reproduction",
+                content: '<div class="space-y-4">' +
+                    '<h2 class="text-3xl font-extrabold text-emerald-700 mb-6">Nesting and Reproduction</h2>' +
+                    '<table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">' +
+                        '<thead class="bg-emerald-50"><tr><th>Topic</th><th>Details</th></tr></thead>' +
+                        '<tbody>' +
+                            '<tr><td>Nesting Season</td><td>May through August, peaking in June and July.</td></tr>' +
+                            '<tr><td>Nesting Frequency</td><td>A female nests <strong>3 to 7 times</strong> per season (average 4), with an interval of about 14 days between nests. She typically returns to nest every 2 to 3 years.</td></tr>' +
+                            '<tr><td>Clutch Size</td><td>Approximately <strong>110 eggs</strong> per nest. Eggs incubate for about 55–60 days.</td></tr>' +
+                            '<tr><td>Hatchling Emergence</td><td>Hatchlings emerge primarily at night and crawl toward the brightest horizon—the moon reflecting off the ocean—to reach the water. Artificial lights can disorient them.</td></tr>' +
+                            '<tr><td class="bg-yellow-50 font-semibold">Sex Determination</td><td class="bg-yellow-50">The temperature of the sand determines the sex of the hatchlings: <strong>Warmer</strong> temperatures produce <strong>females</strong>, and <strong>cooler</strong> temperatures produce <strong>males</strong>.</td></tr>' +
+                        '</tbody>' +
+                    '</table>' +
+                    '</div>'
+            },
+            {
+                title: "Slide 4: Locomotion and Tracking Model Data",
+                content: '<div class="space-y-4">' +
+                    '<h2 class="text-3xl font-extrabold text-emerald-700 mb-6">Locomotion and Tracking Model Data</h2>' +
+                    '<table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">' +
+                        '<thead class="bg-emerald-50"><tr><th>Topic</th><th>Details</th></tr></thead>' +
+                        '<tbody>' +
+                            '<tr><td>Movement in Water</td><td>Highly migratory. They use powerful front flippers to "fly" through the water. They can navigate thousands of miles using the Earth\'s magnetic field.</td></tr>' +
+                            '<tr><td class="bg-indigo-50 font-semibold">Movement on Land (Key for AI)</td><td class="bg-indigo-50">Females crawl using an <strong>alternating flipper movement</strong> (left front flipper, then right front flipper). This is the key physical feature used by beach surveyors and for your AI tracking model.</td></tr>' +
+                            '<tr><td>Track Dimensions</td><td>Adult Loggerhead crawl tracks measure approximately <strong>70 to 90 cm (27 to 35 inches)</strong> wide.</td></tr>' +
+                            '<tr><td>Track Pattern for AI</td><td>The track consists of asymmetrical scoop marks on either side of a relatively smooth center. The tail often leaves a faint, intermittent drag mark in the center channel.</td></tr>' +
+                        '</tbody>' +
+                    '</table>' +
+                    '<div class="p-4 bg-blue-50 border-l-4 border-blue-400 text-blue-800">' +
+                        '<!-- Image Placeholder: Diagram of an adult Loggerhead sea turtle track/crawl mark in the sand. --> <img src="http://googleusercontent.com/image_collection/image_retrieval/13672326275485602212_0" alt="Loggerhead Sea Turtle crawl tracks" class="mt-3 rounded-xl shadow-lg w-full max-h-72 object-cover">' +
+                    '</div>' +
+                    '</div>'
+            },
+            {
+                title: "Slide 5: Additional Resources (Links & Videos)",
+                content: '<div class="space-y-4">' +
+                    '<h2 class="text-3xl font-extrabold text-emerald-700 mb-6">Additional Resources</h2>' +
+                    '<p>These links will provide valuable context and data for your research:</p>' +
+                    '<ul class="list-disc list-inside space-y-2 text-gray-700">' +
+                        '<li><strong>Alabama Loggerhead Info:</strong> <a href="https://www.outdooralabama.com/turtles/loggerhead-sea-turtle" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Outdoor Alabama: Loggerhead Sea Turtle</a> (Local conservation details.)</li>' +
+                        '<li><strong>NOAA Fisheries Profile:</strong> <a href="https://www.fisheries.noaa.gov/species/loggerhead-turtle" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Loggerhead Turtle</a> (Comprehensive biology and threats.)</li>' +
+                        '<li><strong>Video Resource:</strong> Search YouTube for <strong>"The LOGGERHEAD Sea Turtle | Size, Diet, Nesting"</strong> to find a quick species overview video.</li>' +
+                        '<li><strong>Tracking Model Data:</strong> Search for <strong>"Differentiating Sea Turtle Crawl Tracks"</strong> to find diagrams comparing Loggerhead (alternating) tracks with other species for your AI model development.</li>' +
+                    '</ul>' +
+                    '<div class="p-3 mt-4 bg-green-100 text-green-800 rounded-lg">' +
+                        '<p class="font-semibold"><strong>Tip for AI Model:</strong></p>' +
+                        '<p>Focus on the <strong>alternating flipper movement</strong> pattern. This pattern is the primary distinguishing feature for the Loggerhead\'s crawl track!</p>' +
+                    '</div>' +
+                    '</div>'
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        const totalSlides = presentationSlides.length;
+
+        const viewer = document.getElementById('slide-viewer');
+        const indicator = document.getElementById('slide-indicator');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function updateSlide() {
+            // Update indicator text
+            indicator.textContent = `Slide ${currentSlideIndex + 1} of ${totalSlides}`;
+
+            // Update button states
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === totalSlides - 1;
+
+            // Fade out, update content, and fade in
+            viewer.style.opacity = 0;
+            setTimeout(() => {
+                viewer.innerHTML = presentationSlides[currentSlideIndex].content;
+                viewer.style.opacity = 1;
+            }, 300); // Wait for fade out transition to finish
+        }
+
+        function changeSlide(direction) {
+            let newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < totalSlides) {
+                currentSlideIndex = newIndex;
+                updateSlide();
+            }
+        }
+
+        // Initial load
+        window.onload = updateSlide;
+
+    </script>
+</body>
+</html>
