@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alabama Turtle & Tortoise Guide</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #18181b; /* Zinc-900 for a dark background */
+            color: #d4d4d8; /* Zinc-300 for default text */
+        }
+        /* Custom scrollbar for better visibility in dark mode */
+        .scrolling-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scrolling-tabs::-webkit-scrollbar-thumb {
+            background-color: #52525b; /* Zinc-600 */
+            border-radius: 3px;
+        }
+
+        /* Styling the header with a slight background to feel more natural */
+        .header-bg {
+            background-color: #064E3B; /* Dark Green-800 */
+            background-size: cover;
+            background-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Main Container: Dark Card -->
+    <div class="max-w-7xl mx-auto bg-zinc-800 shadow-2xl rounded-3xl overflow-hidden">
+        
+        <!-- Header: Deep Green -->
+        <header class="header-bg p-6 sm:p-8">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">
+                Alabama's Precious Turtles & Tortoises
+            </h1>
+            <p class="text-green-200 text-lg">
+                An interactive guide to five key threatened and endangered Alabama reptile species.
+            </p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-4 sm:p-8">
+            <!-- Species Navigation Tabs -->
+            <div class="mb-8 border-b-2 border-zinc-700">
+                <nav id="species-tabs" class="flex flex-nowrap space-x-2 md:space-x-4 overflow-x-auto scrolling-tabs">
+                    <!-- Tabs will be dynamically generated here -->
+                </nav>
+            </div>
+
+            <!-- Species Profile Container -->
+            <div id="species-content">
+                <!-- Content will be dynamically displayed here -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Data for all five species
+        const speciesData = [
+            {
+                id: 'kemps-ridley',
+                name: "Kemp's Ridley Sea Turtle",
+                scientific: "Lepidochelys kempii",
+                status: "Critically Endangered",
+                color: 'blue-500', 
+                image: "https://placehold.co/800x450/1d4ed8/ffffff?text=Kemp's+Ridley+Sea+Turtle",
+                details: {
+                    habitat: "Marine, open Gulf waters, and nearshore coastal areas. Juveniles often associate with floating Sargassum algae for refuge and feeding.",
+                    distribution: "Occasional visitor to Alabama waters. Rare nesting is documented on Alabama Gulf beaches (Dauphin Island to Alabama Point). The primary nesting area is Mexico.",
+                    nesting: "Known for 'arribada' (mass synchronized) nesting, often occurring during the DAY. Females lay 2-3 clutches per season, with ~100 eggs per clutch in sand nests (May-July).",
+                    locomotion: "Highly aquatic, powerful flippers for swimming. On land, they use an alternating flipper motion to crawl across the sand.",
+                    tracking: {
+                        crawl: "Alternating flipper tracks. The crawl is narrower than the Loggerhead's, and the prints are asymmetrical, appearing as comma-shaped scoops.",
+                        mock: `<svg class="w-full h-24" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M50 80 Q 70 50 50 20 L 60 0 M200 80 Q 220 50 200 20 L 210 0 M350 80 Q 370 50 350 20 L 360 0" stroke="#10B981" stroke-width="8" stroke-linecap="round"/>
+                                    <path d="M100 80 Q 120 50 100 20 L 110 0 M250 80 Q 270 50 250 20 L 260 0 M400 80 Q 420 50 400 20 L 410 0" stroke="#D1D5DB" stroke-width="8" stroke-linecap="round"/>
+                                    <line x1="0" y1="50" x2="400" y2="50" stroke="#52525B" stroke-dasharray="4 4"/>
+                                    <text x="15" y="95" font-size="10" fill="#A1A1AA">Alternating Crawl</text>
+                                </svg>`
+                    },
+                    links: [
+                        { text: "NOAA Fisheries Profile", url: "https://www.fisheries.noaa.gov/species/kemps-ridley-turtle" },
+                    ]
+                }
+            },
+            {
+                id: 'loggerhead',
+                name: "Loggerhead Sea Turtle",
+                scientific: "Caretta caretta",
+                status: "Threatened",
+                color: 'red-500', 
+                image: "https://placehold.co/800x450/ef4444/ffffff?text=Loggerhead+Sea+Turtle",
+                details: {
+                    habitat: "Marine, found in continental shelves, estuaries, and shallow coastal waters. They often forage on the ocean floor.",
+                    distribution: "The most common nesting sea turtle species on all Alabama Gulf beaches from May to October.",
+                    nesting: "Females nest multiple times in a season, depositing 80-120 eggs per nest. They use alternating flipper strokes to dig egg chambers in the sand at night.",
+                    locomotion: "Powerful swimming. On land, the alternating crawl leaves deep, asymmetrical tracks in the sand.",
+                    tracking: {
+                        crawl: "Alternating flipper tracks, similar to Kemp's Ridley but generally wider (up to 3.5 ft wide). Distinct comma-shaped scoop marks that do not line up evenly.",
+                        mock: `<svg class="w-full h-24" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M40 85 Q 80 40 40 10 L 55 0 M180 85 Q 220 40 180 10 L 195 0 M320 85 Q 360 40 320 10 L 335 0" stroke="#F87171" stroke-width="10" stroke-linecap="round"/>
+                                    <path d="M110 85 Q 150 40 110 10 L 125 0 M250 85 Q 290 40 250 10 L 265 0 M390 85 Q 430 40 390 10 L 405 0" stroke="#A1A1AA" stroke-width="10" stroke-linecap="round"/>
+                                    <path d="M0 50 L 400 50" stroke="#FBBF24" stroke-width="2" stroke-dasharray="2 2"/>
+                                    <text x="10" y="95" font-size="10" fill="#A1A1AA">Wide Alternating Crawl (often with tail drag)</text>
+                                </svg>`
+                    },
+                    links: [
+                        { text: "Alabama Sea Turtle Conservation", url: "https://www.outdooralabama.com/what-know-about-sea-turtles" },
+                    ]
+                }
+            },
+            {
+                id: 'gopher-tortoise',
+                name: "Gopher Tortoise",
+                scientific: "Gopherus polyphemus",
+                status: "Threatened (Keystone Species)",
+                color: 'amber-500', 
+                image: "https://placehold.co/800x450/f59e0b/ffffff?text=Gopher+Tortoise+Burrow",
+                details: {
+                    habitat: "Terrestrial, favoring well-drained, sandy soils in upland pine forests, especially longleaf pine savannas. They spend up to 80% of their time in burrows.",
+                    distribution: "Found in suitable sandy habitats across southern Alabama, east of the Mobile River.",
+                    nesting: "Nests are often dug in the 'apron' (mound of sand) right outside the burrow entrance, or in open, sunny patches.",
+                    locomotion: "Terrestrial, walking. Hind legs are stumpy and elephant-like for stability. Forelimbs are shovel-like, designed for powerful digging.",
+                    tracking: {
+                        crawl: "Distinct, non-webbed tracks. Front feet leave narrow, clawed, shovel-like prints. Hind feet leave wide, rounded, pad-like prints. Tracks lead to a characteristic hemispherical burrow entrance.",
+                        mock: `<svg class="w-full h-24" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="80" r="15" fill="#FBBF24"/>
+                                    <rect x="10" y="10" width="20" height="30" rx="5" fill="#FBBF24"/>
+                                    <circle cx="250" cy="80" r="15" fill="#FBBF24"/>
+                                    <rect x="210" y="10" width="20" height="30" rx="5" fill="#FBBF24"/>
+                                    <text x="15" y="95" font-size="10" fill="#A1A1AA">Hind Foot (Pad)</text>
+                                    <text x="15" y="55" font-size="10" fill="#A1A1AA">Fore Foot (Clawed/Shovel)</text>
+                                </svg>`
+                    },
+                    links: [
+                        { text: "USFWS Gopher Tortoise Profile", url: "https://www.fws.gov/project/gopher-tortoise" },
+                    ]
+                }
+            },
+            {
+                id: 'flattened-musk',
+                name: "Flattened Musk Turtle",
+                scientific: "Sternotherus depressus",
+                status: "Critically Endangered",
+                color: 'green-500', 
+                image: "https://placehold.co/800x450/10b981/ffffff?text=Flattened+Musk+Turtle+on+Rock",
+                details: {
+                    habitat: "Endemic to the upper Black Warrior River system (above the Fall Line). Prefers clear, shallow, free-flowing streams with rocky or sandy bottoms, and submerged rock crevices for cover.",
+                    distribution: "Restricted to the Black Warrior River watershed (e.g., Blount, Cullman, Walker, Jefferson counties). Highly sensitive to pollution and siltation.",
+                    nesting: "Females lay small clutches (1-3 eggs) in shallow nests dug in the ground near the stream bank (May-July).",
+                    locomotion: "Aquatic, using its flattened shell to hide in rock crevices. Primarily nocturnal, moving along the stream bottom. Home ranges are small (around 330m of stream length).",
+                    tracking: {
+                        crawl: "Primarily aquatic. Any prints on soft, muddy banks near the water edge will be small, faint, and likely show five webbed toes.",
+                        mock: `<svg class="w-full h-24" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="10" y="30" width="80" height="40" rx="10" fill="#059669" opacity="0.5"/>
+                                    <path d="M20 50 L 30 40 L 40 50 M40 50 L 50 40 L 60 50" stroke="#34D399" stroke-width="3"/>
+                                    <text x="15" y="95" font-size="10" fill="#A1A1AA">Faint Webbed Print (Mud/Bank)</text>
+                                </svg>`
+                    },
+                    links: [
+                        { text: "USFWS Flattened Musk Turtle", url: "https://www.fws.gov/species/flattened-musk-turtle-sternotherus-depressus" },
+                    ]
+                }
+            },
+            {
+                id: 'alabama-red-bellied',
+                name: "Alabama Red-bellied Turtle",
+                scientific: "Pseudemys rubriventris", 
+                status: "Endangered (Alabama State Reptile)",
+                color: 'purple-500', 
+                image: "https://placehold.co/800x450/9333ea/ffffff?text=Alabama+Red-bellied+Cooter",
+                details: {
+                    habitat: "Fresh to marginally brackish waters of the Mobile-Tensaw River Delta. Prefers shallow, vegetated backwaters, river channels, and areas with extensive aquatic plants.",
+                    distribution: "Endemic to Mobile and Baldwin counties adjacent to Mobile Bay, mainly within the Mobile-Tensaw River Delta.",
+                    nesting: "Nesting occurs from April to early August. Females lay 4-9 eggs in sandy soil on dry land, often on levees or dredge spoil sites, usually near the water.",
+                    locomotion: "Aquatic (swimming), but is known to bask on logs. It is very wary and will quickly submerge when disturbed from a basking site. Diurnal (active during the day).",
+                    tracking: {
+                        crawl: "Webbed feet leave distinct tracks on soft, muddy/sandy banks when moving to/from basking or nesting sites. Tracks are symmetrical.",
+                        mock: `<svg class="w-full h-24" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M50 70 L 60 85 L 70 70 M250 70 L 260 85 L 270 70 M50 30 L 60 15 L 70 30 M250 30 L 260 15 L 270 30" stroke="#A855F7" stroke-width="4" fill="none" stroke-linejoin="round"/>
+                                    <circle cx="60" cy="50" r="2" fill="#A855F7"/>
+                                    <circle cx="260" cy="50" r="2" fill="#A855F7"/>
+                                    <path d="M50 70 Q 55 75 60 80 Q 65 75 70 70" fill="#A855F7" opacity="0.3"/>
+                                    <path d="M250 70 Q 255 75 260 80 Q 265 75 270 70" fill="#A855F7" opacity="0.3"/>
+                                    <text x="15" y="95" font-size="10" fill="#A1A1AA">Webbed Foot Drag (Symmetrical)</text>
+                                </svg>`
+                    },
+                    links: [
+                        { text: "Outdoor Alabama Species Profile", url: "https://www.outdooralabama.com/turtles/alabama-red-bellied-turtle" },
+                    ]
+                }
+            }
+        ];
+
+        // --- Home Page Content (Dark Mode Update) ---
+        function renderHomePage() {
+            return `
+                <div class="p-4 sm:p-6 lg:p-8 bg-zinc-900 rounded-2xl shadow-inner border border-zinc-700">
+                    <h2 class="text-3xl font-bold text-green-400 mb-6 border-b-2 border-zinc-700 pb-2">Welcome to the Conservation Guide</h2>
+                    <div class="space-y-6 text-zinc-300">
+                        <p class="text-lg leading-relaxed">
+                            Alabama is a vital hotspot for turtle and tortoise biodiversity, hosting species that live in marine, terrestrial, and freshwater environments. The five species highlighted here—including two sea turtles, one tortoise, and two freshwater species—are all subject to intensive conservation efforts due to their **threatened or endangered status**.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-zinc-700 p-5 rounded-xl shadow-lg border-l-4 border-amber-500">
+                                <h4 class="font-bold text-lg text-amber-300 mb-2 flex items-center">
+                                    <span class="text-2xl mr-2">🏖️</span> Coastal Importance
+                                </h4>
+                                <p class="text-sm text-zinc-200">The **Kemp's Ridley** and **Loggerhead Sea Turtles** rely on the Gulf Coast's sandy beaches for nesting, making beach conservation critical.</p>
+                            </div>
+                            <div class="bg-zinc-700 p-5 rounded-xl shadow-lg border-l-4 border-amber-500">
+                                <h4 class="font-bold text-lg text-amber-300 mb-2 flex items-center">
+                                    <span class="text-2xl mr-2">🌲</span> Keystone Species
+                                </h4>
+                                <p class="text-sm text-zinc-200">The **Gopher Tortoise** is a **keystone species** of the longleaf pine ecosystem; its burrows provide shelter for hundreds of other animals.</p>
+                            </div>
+                            <div class="bg-zinc-700 p-5 rounded-xl shadow-lg border-l-4 border-amber-500">
+                                <h4 class="font-bold text-lg text-amber-300 mb-2 flex items-center">
+                                    <span class="text-2xl mr-2">💧</span> Endemic Waterways
+                                </h4>
+                                <p class="text-sm text-zinc-200">The **Flattened Musk Turtle** and the **Alabama Red-bellied Turtle** are endemic to Alabama's unique river systems and are highly sensitive to pollution and habitat loss.</p>
+                            </div>
+                        </div>
+
+                        <p class="text-lg pt-4 font-semibold text-green-400">
+                            Use the tabs above to explore detailed profiles, including information on their specific habitats, nesting behaviors, and how to identify their tracks in the wild.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Species Profile Renderer (Dark Mode & Image Size Update) ---
+        function renderSpeciesProfile(species) {
+            const data = species.details;
+            
+            return `
+                <div class="p-4 sm:p-6 lg:p-8 bg-zinc-900 rounded-2xl shadow-inner border border-zinc-700">
+                    <h2 class="text-3xl font-bold text-white mb-2">${species.name}</h2>
+                    <p class="text-lg italic text-zinc-400 mb-6 border-b border-zinc-700 pb-4">${species.scientific}</p>
+
+                    <!-- Changed to grid-cols-4, making image 1/4 width (smaller) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        
+                        <!-- Image and Status (lg:col-span-1) -->
+                        <div class="lg:col-span-1 flex flex-col items-center">
+                            <!-- Constraint added: max-w-xs on small screens, ensuring it doesn't dominate on mobile/tablet. -->
+                            <div class="w-full max-w-sm"> 
+                                <img src="${species.image}" 
+                                    alt="${species.name} placeholder image" 
+                                    class="w-full h-auto rounded-xl shadow-xl object-cover mb-4 aspect-[4/3] transition duration-300 hover:scale-[1.02] cursor-pointer border-2 border-zinc-700"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/800x450/3f3f46/ffffff?text=Image+Unavailable';"
+                                >
+                                <div class="text-center p-3 rounded-xl shadow-md bg-${species.color.split('-')[0]}-600">
+                                    <span class="text-xl font-semibold text-white">Status: ${species.status}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Details (lg:col-span-3) -->
+                        <div class="lg:col-span-3 space-y-6">
+                            ${createDetailCard("Habitat & Ecosystem", species.color, data.habitat, "🌊")}
+                            ${createDetailCard("Distribution in Alabama", species.color, data.distribution, "📍")}
+                            ${createDetailCard("Nesting Habits", species.color, data.nesting, "🥚")}
+                            ${createDetailCard("Locomotion & Movement", species.color, data.locomotion, "🚶")}
+                        </div>
+                    </div>
+
+                    <!-- Tracking Section -->
+                    <div class="mt-8 pt-6 border-t border-zinc-700">
+                        <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.553-.894L9 8m0 12l5.447-2.724A1 1 0 0015 16.382V5.618a1 1 0 00-1.553-.894L9 8m0 12V8"></path></svg>
+                            Tracking & Footprint Signature
+                        </h3>
+                        <div class="p-4 bg-zinc-700 rounded-xl shadow-lg border border-zinc-600">
+                            <p class="mb-4 text-zinc-200 font-medium">${data.tracking.crawl}</p>
+                            <div class="p-4 bg-amber-900 bg-opacity-30 rounded-lg border border-amber-700">
+                                <p class="text-sm text-zinc-300 mb-2 font-semibold">Mock Track Diagram (Not to scale):</p>
+                                ${data.tracking.mock}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- External Links -->
+                    <div class="mt-6">
+                        <h3 class="text-xl font-bold text-white mb-3">Resources</h3>
+                        <div class="flex flex-wrap gap-4">
+                            ${data.links.map(link => `
+                                <a href="${link.url}" target="_blank" rel="noopener noreferrer" 
+                                   class="px-4 py-2 bg-green-700 text-white rounded-full text-sm font-semibold hover:bg-green-800 transition duration-150 shadow-md flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                    ${link.text}
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                </div>
+            `;
+        }
+
+        // Helper function for creating consistent detail cards (Dark Mode Update)
+        function createDetailCard(title, color, content, icon) {
+            const borderColor = color.split('-')[0]; // e.g., 'blue', 'red'
+            return `
+                <div class="p-4 bg-zinc-700 rounded-xl shadow-lg border-l-4 border-${borderColor}-500 transition duration-300 hover:shadow-xl hover:bg-zinc-600">
+                    <h4 class="text-xl font-semibold text-${borderColor}-400 mb-2 flex items-center">
+                        <span class="mr-2 text-2xl">${icon}</span> ${title}
+                    </h4>
+                    <p class="text-zinc-200">${content}</p>
+                </div>
+            `;
+        }
+        
+        // --- Core App Logic (Dark Mode Tab Styling) ---
+        const contentDiv = document.getElementById('species-content');
+
+        // Function to handle page selection
+        function selectPage(id) {
+            
+            // 1. Update button styles
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                const btnId = btn.dataset.pageId;
+                const isSelected = btnId === id;
+                const species = speciesData.find(s => s.id === btnId) || {color: 'green-500'}; 
+
+                let colorClass = species.color.split('-')[0];
+                
+                // Construct the base class string
+                let baseClass = `tab-button px-4 py-3 text-sm md:text-base font-semibold rounded-t-xl transition duration-200 whitespace-nowrap focus:outline-none focus:ring-4 focus:ring-${colorClass}-500 focus:ring-opacity-50`;
+
+                if (isSelected) {
+                    // Selected: Dark card background, color-matched border and text
+                    btn.className = `${baseClass} bg-zinc-800 border-x border-t border-${colorClass}-400 text-${colorClass}-400 -mb-[2px] shadow-sm`;
+                } else {
+                    // Unselected: Darker, subtle background
+                    btn.className = `${baseClass} bg-zinc-700 text-zinc-400 hover:bg-zinc-600 border-b border-transparent`;
+                }
+            });
+
+            // 2. Render content
+            if (id === 'home') {
+                contentDiv.innerHTML = renderHomePage();
+            } else {
+                const selectedSpecies = speciesData.find(s => s.id === id);
+                if (selectedSpecies) {
+                    contentDiv.innerHTML = renderSpeciesProfile(selectedSpecies);
+                } else {
+                    contentDiv.innerHTML = `<div class="text-red-400 p-8 bg-zinc-900 rounded-xl">Error: Species not found.</div>`;
+                }
+            }
+
+            // 3. Scroll to the top of the content area
+            contentDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        // Function to set up the tab navigation and initial load
+        function initializeApp() {
+            const tabsContainer = document.getElementById('species-tabs');
+            
+            // 1. Create HOME tab
+            const homeButton = document.createElement('button');
+            homeButton.setAttribute('id', `tab-home`);
+            homeButton.textContent = 'Home / Overview';
+            homeButton.dataset.pageId = 'home';
+            homeButton.addEventListener('click', () => selectPage('home'));
+            tabsContainer.appendChild(homeButton);
+
+
+            // 2. Create Species tabs
+            speciesData.forEach((species) => {
+                const button = document.createElement('button');
+                button.setAttribute('id', `tab-${species.id}`);
+                button.textContent = species.name;
+                button.dataset.pageId = species.id;
+
+                button.addEventListener('click', () => {
+                    selectPage(species.id);
+                });
+
+                tabsContainer.appendChild(button);
+            });
+
+            // 3. Load the Home page on startup
+            selectPage('home');
+        }
+
+        // Initialize the application once the DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
 
